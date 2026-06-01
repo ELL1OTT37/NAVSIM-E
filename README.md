@@ -12,22 +12,14 @@ This repository ships **definitions and tooling only**. Sensor data must be obta
 | \# scenes | **2364** tokens (one 14-frame window per token) |
 | Window | 4 history + 10 future frames, `frame_interval=1`, `has_route=true` (see `scene_filter/navsim-e.yaml`) |
 
-**High-level mix (2364 tokens):**
+**Camera mix (2364 tokens):**
 
-| Camera data | Share | Count | How it is selected |
-|-------------|------:|------:|--------------------|
-| **Processed** (offline corruptions) | **~2/3** | **1576** | `extreme_merged` (788) + `processed_random` (788) |
-| **Normal** (raw OpenScene `test`) | **~1/3** | **788** | `raw_random` (788) |
+| Camera data | Share | Count |
+|-------------|------:|------:|
+| **Processed** (offline corruptions) | **~2/3** | **1576** |
+| **Normal** (raw OpenScene `test`) | **~1/3** | **788** |
 
-The three pools below are merged with **no duplicate tokens** (`source_dataset` in `manifests/navsim-e_manifest.csv`):
-
-| `source_dataset` | Count | Role (short) |
-|------------------|------:|----------------|
-| `extreme_merged` | 788 | Challenging / collision-related scenarios (processed cameras) |
-| `processed_random` | 788 | Random test sample (processed cameras; see `selected_source` per token) |
-| `raw_random` | 788 | Random test sample (normal / uncorrupted cameras) |
-
-Per-token `log_name`, corruption type (`selected_source`), PDM/collision fields, and split tags are in **`manifests/navsim-e_manifest.csv`**. More detail: [docs/dataset_composition.md](docs/dataset_composition.md).
+Per-token `log_name`, camera treatment (`selected_source`), and optional metadata are in **`manifests/navsim-e_manifest.csv`**. More detail: [docs/dataset_composition.md](docs/dataset_composition.md).
 
 ## Contents
 

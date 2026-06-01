@@ -13,26 +13,14 @@ Defined in `scene_filter/navsim-e.yaml`:
 - `frame_interval`: 1  
 - `has_route`: true  
 
-## Selection (2364 tokens)
+## Camera mix (2364 tokens)
 
-NAVSIM-E is built as **~2/3 processed + ~1/3 normal** cameras:
+| Camera data | Share | Count |
+|-------------|------:|------:|
+| **Processed** (offline corruptions) | **~2/3** | **1576** |
+| **Normal** (raw OpenScene test) | **~1/3** | **788** |
 
-| Camera data | Count | `source_dataset` pools |
-|-------------|------:|------------------------|
-| **Processed** (offline corruptions) | **1576** | `extreme_merged` (788) + `processed_random` (788) |
-| **Normal** (raw OpenScene test) | **788** | `raw_random` (788) |
-
-The three pools are merged with **no duplicate tokens** (`source_dataset` column):
-
-| `source_dataset` | Count | Description |
-|------------------|------:|-------------|
-| `extreme_merged` | 788 | Collision- / difficulty-focused scenarios (processed cameras) |
-| `processed_random` | 788 | Random test sample with processed cameras |
-| `raw_random` | 788 | Random test sample with normal OpenScene cameras (`selected_source=raw`) |
-
-## Corruption label per scene
-
-For **processed** scenes, `selected_source` names the camera tree (`night`, `snow`, or `spatter`). For **normal** scenes it is `raw`. Use `manifests/navsim-e_manifest.csv` for the exact label of each token.
+All tokens are disjoint. For each scene, **`selected_source`** in the manifest indicates whether to load processed camera trees (`night`, `snow`, `spatter`) or the normal `sensor_blobs/test` path.
 
 Corrupted cameras are offline augmentations of `sensor_blobs/test`; see [setup.md](setup.md#corruption-handling).
 
@@ -41,7 +29,8 @@ Corrupted cameras are offline augmentations of `sensor_blobs/test`; see [setup.m
 `manifests/navsim-e_manifest.csv` includes:
 
 - `token`, `log_name` — scene id and parent OpenScene log  
-- `selected_source`, `source_dataset` — corruption type and selection pool  
+- `selected_source` — camera treatment (`night`, `snow`, `spatter`, or `raw`)  
+- `source_dataset` — internal split tag (optional; not required for evaluation)  
 - `no_at_fault_collisions`, `score`, … — optional PDM / filtering metadata when available  
 
 ## What this repo does not ship
