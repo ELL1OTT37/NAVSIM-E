@@ -1,0 +1,22 @@
+# Raw OpenScene / NavSim data (never commit)
+data/
+dataset/
+sensor_blobs/
+navsim_logs/
+*.pkl
+*.pcd
+*.jpg
+*.png
+
+# Caches and experiments
+exp/
+metric_cache/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.hydra/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
