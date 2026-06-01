@@ -30,8 +30,6 @@ Corrupted cameras are offline augmentations of `sensor_blobs/test`; see [setup.m
 
 - `token`, `log_name` — scene id and parent OpenScene log  
 - `selected_source` — camera treatment (`night`, `snow`, `spatter`, or `raw`)  
-- `source_dataset` — internal split tag (optional; not required for evaluation)  
-- `no_at_fault_collisions`, `score`, … — optional PDM / filtering metadata when available  
 
 ## What this repo does not ship
 

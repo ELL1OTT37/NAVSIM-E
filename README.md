@@ -19,7 +19,7 @@ This repository ships **definitions and tooling only**. Sensor data must be obta
 | **Processed** (offline corruptions) | **~2/3** | **1576** |
 | **Normal** (raw OpenScene `test`) | **~1/3** | **788** |
 
-Per-token `log_name`, camera treatment (`selected_source`), and optional metadata are in **`manifests/navsim-e_manifest.csv`**. More detail: [docs/dataset_composition.md](docs/dataset_composition.md).
+Per-token `log_name` and camera treatment (`selected_source`) are in **`manifests/navsim-e_manifest.csv`**. More detail: [docs/dataset_composition.md](docs/dataset_composition.md).
 
 ## Contents
 
