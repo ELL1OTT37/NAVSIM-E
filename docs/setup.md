@@ -9,7 +9,7 @@
 | **NAVSIM-E** | 2364-token subset used in our corruption / collision study |
 
 `scene_filter/navsim-e.yaml` lists all tokens. `manifests/navsim-e_manifest.csv` adds `log_name` and corruption metadata.  
-**Dataset makeup (2364 tokens, three pools, corruption mix):** [dataset_composition.md](dataset_composition.md).
+**Dataset makeup (2364 tokens, three pools):** [dataset_composition.md](dataset_composition.md).
 
 ## Evaluation with NAVSIM v2
 
@@ -43,7 +43,7 @@ Corrupted cameras are **not** part of the official OpenScene download. They are 
 4. **LiDAR:** if a corruption folder has cameras only, keep point clouds from **`sensor_blobs/test`** (see [Lidar fallback](#lidar-fallback) below).
 5. Run NAVSIM with `scene_filter/navsim-e.yaml` (`train_test_split.scene_filter=navsim-e`). Point `OPENSCENE_DATA_ROOT` (or your agent config) at the correct logs + sensor paths per token.
 
-When building a on-disk subset with `scripts/extract_subset.py`, set `--src-sensor-blobs` to the corruption root for that batch, and use `--src-sensor-blobs-lidar` for the original `sensor_blobs` if needed.
+When building a on-disk subset with `scripts/extract_subset.py`, pass one `--src-sensor-blobs` root per run (e.g. all-raw, or all-spatter). The script reads tokens from the manifest but does **not** switch camera roots per `selected_source`; for the full benchmark, run separate extractions per corruption tree or resolve paths in your loader.
 
 ## Lidar fallback
 

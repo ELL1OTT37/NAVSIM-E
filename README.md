@@ -17,7 +17,7 @@ This repository ships **definitions and tooling only**. Sensor data must be obta
 | `source_dataset` | Count | Role (short) |
 |------------------|------:|----------------|
 | `extreme_merged` | 788 | Challenging / collision-related scenarios (merged extreme subset) |
-| `processed_random` | 788 | Random sample with processed corruptions |
+| `processed_random` | 788 | Random test sample using **processed** cameras (see manifest `selected_source`) |
 | `raw_random` | 788 | Random sample using raw (uncorrupted) cameras |
 
 Per-token `log_name`, corruption type (`selected_source`), PDM/collision fields, and split tags are in **`manifests/navsim-e_manifest.csv`**. More detail: [docs/dataset_composition.md](docs/dataset_composition.md).
