@@ -15,17 +15,24 @@ Defined in `scene_filter/navsim-e.yaml`:
 
 ## Selection (2364 tokens)
 
-The benchmark merges **three** scenario pools of **788** tokens each (`source_dataset` column):
+NAVSIM-E is built as **~2/3 processed + ~1/3 normal** cameras:
+
+| Camera data | Count | `source_dataset` pools |
+|-------------|------:|------------------------|
+| **Processed** (offline corruptions) | **1576** | `extreme_merged` (788) + `processed_random` (788) |
+| **Normal** (raw OpenScene test) | **788** | `raw_random` (788) |
+
+The three pools are merged with **no duplicate tokens** (`source_dataset` column):
 
 | `source_dataset` | Count | Description |
 |------------------|------:|-------------|
-| `extreme_merged` | 788 | Collision- / difficulty-focused scenarios from merged extreme subsets |
-| `processed_random` | 788 | Randomly sampled test tokens with **processed** cameras; corruption type is given per token in `selected_source` (not raw) |
-| `raw_random` | 788 | Randomly sampled test tokens using **raw** OpenScene cameras (`selected_source=raw`) |
+| `extreme_merged` | 788 | Collision- / difficulty-focused scenarios (processed cameras) |
+| `processed_random` | 788 | Random test sample with processed cameras |
+| `raw_random` | 788 | Random test sample with normal OpenScene cameras (`selected_source=raw`) |
 
 ## Corruption label per scene
 
-The `selected_source` column indicates which **camera** tree to use (`night`, `snow`, `spatter`, or `raw`). It is independent of `source_dataset`: e.g. `extreme_merged` mixes night/snow/spatter labels, while `raw_random` is always `raw`. Aggregate counts of each label are **not** balanced across the full 2364 tokens—use the manifest for per-scene labels.
+For **processed** scenes, `selected_source` names the camera tree (`night`, `snow`, or `spatter`). For **normal** scenes it is `raw`. Use `manifests/navsim-e_manifest.csv` for the exact label of each token.
 
 Corrupted cameras are offline augmentations of `sensor_blobs/test`; see [setup.md](setup.md#corruption-handling).
 

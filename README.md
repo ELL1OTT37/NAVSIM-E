@@ -1,6 +1,6 @@
 # NAVSIM-E
 
-**NAVSIM-E** is a curated evaluation subset for end-to-end driving on corrupted OpenScene **test** logs. It contains **2364** scene tokens with per-scene metadata (corruption type, source split, etc.).
+**NAVSIM-E** is a curated evaluation subset for end-to-end driving on OpenScene **test** logs. It contains **2364** scene tokens: roughly **two thirds** use **processed** (corrupted) cameras and **one third** use **normal** (uncorrupted) OpenScene cameras, with per-scene metadata in the manifest.
 
 This repository ships **definitions and tooling only**. Sensor data must be obtained under the [nuPlan / OpenScene license](https://motional-nuplan.s3-ap-northeast-1.amazonaws.com/LICENSE) via the official [NAVSIM devkit](https://github.com/autonomousvision/navsim).
 
@@ -12,13 +12,20 @@ This repository ships **definitions and tooling only**. Sensor data must be obta
 | \# scenes | **2364** tokens (one 14-frame window per token) |
 | Window | 4 history + 10 future frames, `frame_interval=1`, `has_route=true` (see `scene_filter/navsim-e.yaml`) |
 
-**How the 2364 scenes were built** — three equal splits merged (`source_dataset` in `manifests/navsim-e_manifest.csv`):
+**High-level mix (2364 tokens):**
+
+| Camera data | Share | Count | How it is selected |
+|-------------|------:|------:|--------------------|
+| **Processed** (offline corruptions) | **~2/3** | **1576** | `extreme_merged` (788) + `processed_random` (788) |
+| **Normal** (raw OpenScene `test`) | **~1/3** | **788** | `raw_random` (788) |
+
+The three pools below are merged with **no duplicate tokens** (`source_dataset` in `manifests/navsim-e_manifest.csv`):
 
 | `source_dataset` | Count | Role (short) |
 |------------------|------:|----------------|
-| `extreme_merged` | 788 | Challenging / collision-related scenarios (merged extreme subset) |
-| `processed_random` | 788 | Random test sample using **processed** cameras (see manifest `selected_source`) |
-| `raw_random` | 788 | Random sample using raw (uncorrupted) cameras |
+| `extreme_merged` | 788 | Challenging / collision-related scenarios (processed cameras) |
+| `processed_random` | 788 | Random test sample (processed cameras; see `selected_source` per token) |
+| `raw_random` | 788 | Random test sample (normal / uncorrupted cameras) |
 
 Per-token `log_name`, corruption type (`selected_source`), PDM/collision fields, and split tags are in **`manifests/navsim-e_manifest.csv`**. More detail: [docs/dataset_composition.md](docs/dataset_composition.md).
 

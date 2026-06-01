@@ -6,7 +6,7 @@
 |-------|------|
 | OpenScene `test` | Parent download (logs + sensors) |
 | `navtest` | Official NAVSIM filtered test split |
-| **NAVSIM-E** | 2364-token subset used in our corruption / collision study |
+| **NAVSIM-E** | 2364-token subset (~2/3 processed cameras, ~1/3 normal) |
 
 `scene_filter/navsim-e.yaml` lists all tokens. `manifests/navsim-e_manifest.csv` adds `log_name` and corruption metadata.  
 **Dataset makeup (2364 tokens, three pools):** [dataset_composition.md](dataset_composition.md).
