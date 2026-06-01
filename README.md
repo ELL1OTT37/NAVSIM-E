@@ -26,7 +26,7 @@ Per-token `log_name` and camera treatment (`selected_source`) are in **`manifest
 | Path | Description |
 |------|-------------|
 | `scene_filter/navsim-e.yaml` | Hydra `SceneFilter` (4 history + 10 future frames) |
-| `manifests/navsim-e_manifest.csv` | `token`, `log_name`, corruption / source metadata |
+| `manifests/navsim-e_manifest.csv` | `token`, `log_name`, `selected_source` |
 | `manifests/navsim-e_tokens.txt` | Token list only |
 | `scripts/extract_subset.py` | Build a local mini-log + sensor subset from full OpenScene `test` |
 
