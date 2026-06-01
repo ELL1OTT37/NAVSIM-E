@@ -22,14 +22,27 @@
 
 Exact shell commands depend on your agent; mirror the upstream `run_metric_caching.sh` / `run_pdm_score` scripts.
 
-## Corrupted sensor blobs
+## Corruption handling
 
-Some tokens use augmented cameras under separate folders (e.g. `sensor_blobs_night`, `sensor_blobs_spatter`). For those scenes, either:
+Corrupted cameras are **not** part of the official OpenScene download. They are **offline augmentations** of `sensor_blobs/test` (e.g. snow / night / spatter), stored in separate folders. This repo only ships the **token list** and the **`selected_source`** column in `manifests/navsim-e_manifest.csv`.
 
-- run agents on the matching corruption path, or  
-- use `--src-sensor-blobs` pointing at the corruption-specific root when calling `extract_subset.py`.
+**Steps:**
 
-Check the `selected_source` / `frame_type` columns in `navsim-e_manifest.csv`.
+1. Download OpenScene **`test`** (`navsim_logs` + `sensor_blobs`) and nuPlan **maps** (see [NAVSIM install](https://github.com/autonomousvision/navsim/blob/main/docs/install.md)).
+2. Obtain corruption camera trees (`sensor_blobs_snow`, `sensor_blobs_spatter`, `sensor_blobs_night`, or your lab’s equivalent paths).
+3. For each token, read **`selected_source`** in `navsim-e_manifest.csv` and use the matching camera root:
+
+| `selected_source` | Camera images |
+|-------------------|---------------|
+| `raw` | `$OPENSCENE_DATA_ROOT/sensor_blobs/test` |
+| `snow` | `.../sensor_blobs_snow/test` |
+| `spatter` | `.../sensor_blobs_spatter/test` |
+| `night` | `.../sensor_blobs_night/test` |
+
+4. **LiDAR:** if a corruption folder has cameras only, keep point clouds from **`sensor_blobs/test`** (see [Lidar fallback](#lidar-fallback) below).
+5. Run NAVSIM with `scene_filter/navsim-e.yaml` (`train_test_split.scene_filter=navsim-e`). Point `OPENSCENE_DATA_ROOT` (or your agent config) at the correct logs + sensor paths per token.
+
+When building a on-disk subset with `scripts/extract_subset.py`, set `--src-sensor-blobs` to the corruption root for that batch, and use `--src-sensor-blobs-lidar` for the original `sensor_blobs` if needed.
 
 ## Lidar fallback
 

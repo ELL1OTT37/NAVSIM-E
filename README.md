@@ -67,7 +67,11 @@ Output layout:
   manifest/
 ```
 
-See [docs/setup.md](docs/setup.md) for corruption-specific sensor roots (night / spatter / snow).
+### 4. Corruption (snow / night / spatter / raw)
+
+This repo does **not** include corrupted images. Use `manifests/navsim-e_manifest.csv` column **`selected_source`** to pick the camera folder (`sensor_blobs` for `raw`, or `sensor_blobs_snow` / `_spatter` / `_night` for corruptions). LiDAR usually stays on the original `sensor_blobs/test`.
+
+See **[docs/setup.md](docs/setup.md#corruption-handling)** for the short step-by-step guide.
 
 ## Citation
 
