@@ -4,6 +4,33 @@
 
 This repository ships **definitions and tooling only**. Sensor data must be obtained under the [nuPlan / OpenScene license](https://motional-nuplan.s3-ap-northeast-1.amazonaws.com/LICENSE) via the official [NAVSIM devkit](https://github.com/autonomousvision/navsim).
 
+## Dataset composition
+
+| Item | Value |
+|------|--------|
+| Parent split | OpenScene / NAVSIM **`test`** (navtest-scale logs) |
+| \# scenes | **2364** tokens (one 14-frame window per token) |
+| Window | 4 history + 10 future frames, `frame_interval=1`, `has_route=true` (see `scene_filter/navsim-e.yaml`) |
+
+**How the 2364 scenes were built** — three equal splits merged (`source_dataset` in `manifests/navsim-e_manifest.csv`):
+
+| `source_dataset` | Count | Role (short) |
+|------------------|------:|----------------|
+| `extreme_merged` | 788 | Challenging / collision-related scenarios (merged extreme subset) |
+| `processed_random` | 788 | Random sample with processed corruptions |
+| `raw_random` | 788 | Random sample using raw (uncorrupted) cameras |
+
+**Corruption mix** (`selected_source` per scene):
+
+| `selected_source` | Count |
+|-------------------|------:|
+| `spatter` | 948 |
+| `raw` | 788 |
+| `snow` | 406 |
+| `night` | 222 |
+
+Per-token `log_name`, PDM/collision fields, and split tags are in **`manifests/navsim-e_manifest.csv`**. More detail: [docs/dataset_composition.md](docs/dataset_composition.md).
+
 ## Contents
 
 | Path | Description |

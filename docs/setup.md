@@ -8,7 +8,8 @@
 | `navtest` | Official NAVSIM filtered test split |
 | **NAVSIM-E** | 2364-token subset used in our corruption / collision study |
 
-`scene_filter/navsim-e.yaml` lists all tokens. `manifests/navsim-e_manifest.csv` adds `log_name` and corruption metadata.
+`scene_filter/navsim-e.yaml` lists all tokens. `manifests/navsim-e_manifest.csv` adds `log_name` and corruption metadata.  
+**Dataset makeup (2364 tokens, three pools, corruption mix):** [dataset_composition.md](dataset_composition.md).
 
 ## Evaluation with NAVSIM v2
 
