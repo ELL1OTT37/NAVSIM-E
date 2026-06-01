@@ -20,16 +20,7 @@ This repository ships **definitions and tooling only**. Sensor data must be obta
 | `processed_random` | 788 | Random sample with processed corruptions |
 | `raw_random` | 788 | Random sample using raw (uncorrupted) cameras |
 
-**Corruption mix** (`selected_source` per scene):
-
-| `selected_source` | Count |
-|-------------------|------:|
-| `spatter` | 948 |
-| `raw` | 788 |
-| `snow` | 406 |
-| `night` | 222 |
-
-Per-token `log_name`, PDM/collision fields, and split tags are in **`manifests/navsim-e_manifest.csv`**. More detail: [docs/dataset_composition.md](docs/dataset_composition.md).
+Per-token `log_name`, corruption type (`selected_source`), PDM/collision fields, and split tags are in **`manifests/navsim-e_manifest.csv`**. More detail: [docs/dataset_composition.md](docs/dataset_composition.md).
 
 ## Contents
 

@@ -20,19 +20,12 @@ The benchmark merges **three** scenario pools of **788** tokens each (`source_da
 | `source_dataset` | Count | Description |
 |------------------|------:|-------------|
 | `extreme_merged` | 788 | Collision- / difficulty-focused scenarios from merged extreme subsets |
-| `processed_random` | 788 | Randomly sampled test tokens paired with **processed** corruptions |
-| `raw_random` | 788 | Randomly sampled test tokens using **raw** OpenScene cameras |
+| `processed_random` | 788 | Randomly sampled test tokens; each scene is assigned a **processed** corruption (`night`, `snow`, or `spatter`) via `selected_source` |
+| `raw_random` | 788 | Randomly sampled test tokens using **raw** OpenScene cameras (`selected_source=raw`) |
 
 ## Corruption label per scene
 
-The `selected_source` column indicates which **camera** tree to use (not the selection pool above):
-
-| `selected_source` | Count |
-|-------------------|------:|
-| `spatter` | 948 |
-| `raw` | 788 |
-| `snow` | 406 |
-| `night` | 222 |
+The `selected_source` column indicates which **camera** tree to use (`night`, `snow`, `spatter`, or `raw`). It is independent of the selection pool (`source_dataset`) above: e.g. `extreme_merged` scenes can be night/snow/spatter, and `processed_random` scenes use processed cameras only.
 
 Corrupted cameras are offline augmentations of `sensor_blobs/test`; see [setup.md](setup.md#corruption-handling).
 
